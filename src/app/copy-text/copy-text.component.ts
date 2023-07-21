@@ -48,6 +48,20 @@ export class CopyTextComponent {
     }, 3000);
   }
 
+  goUp(i: number){
+    if (i > 0 && i < this.texts.length) {
+      const elementToMove = this.texts.splice(i, 1)[0]; 
+      const newIndex = i - 1; 
+      this.texts.splice(newIndex, 0, elementToMove); 
+    }
+  }
+
+  goDown(i:number){
+    const elementToMove = this.texts.splice(i, 1)[0];
+    const newIndex = i + 1;
+    this.texts.splice(newIndex, 0, elementToMove);
+  }
+
   private saveTextToCookie() {
     this.cookieService.set('texts', JSON.stringify(this.texts), 365); // Speichert die Tasks in einem Cookie für 365 Tage
   }

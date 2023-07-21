@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="addText()" class="mb-3">
+  <form (ngSubmit)="addText()" class="my-2">
 
 
     <div class="input-group">
@@ -8,18 +8,28 @@
     </div>
   </form>
 
-  <div class="task-list" style="width: 400px; height: 300px; overflow-y: auto;">
+  <div class="task-list" style="width: 500px; height: 600px; overflow-y: auto;">
     <ul class="list-group">
       <li *ngFor="let text of texts; let i = index"
         class="list-group-item d-flex justify-content-between align-items-center">
         <span class="mx-3">{{ text }}</span>
         <div>
+          <div class="d-flex">
           <button class="btn btn-danger mx-2" (click)="delText(i)">
             <i class="bi bi-trash-fill"></i>
           </button>
-          <button class="btn btn-primary" (click)="copyText(i)">
+          <button class="btn btn-success" (click)="copyText(i)">
             <i class="bi bi-clipboard"></i>
           </button>
+          <div class="input-group mx-2">
+            <button class="btn btn-sm btn-primary" (click)="goUp(i)">
+              <i class="bi bi-arrow-up-square-fill"></i>
+            </button>
+            <button class="btn btn-sm btn-primary" (click)="goDown(i)">
+              <i class="bi bi-arrow-down-square-fill"></i>
+            </button>
+          </div>
+          </div>
         </div>
       </li>
     </ul>
