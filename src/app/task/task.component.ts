@@ -10,6 +10,7 @@ import { Task } from './task.interface';
 export class TaskComponent {
   tasks: Task[] = []; // Use Task[] for the tasks array
   createTask: Task = { title: '', description: '', date: '' }; // Initialize createTask as a Task object
+  taskToEdit = 0;
   ModalEditMode = false;
   ModalShowMode = false;
 
@@ -23,13 +24,24 @@ export class TaskComponent {
   }
 
   addTask() {
-    console.log(this.createTask);
-
-    if (this.createTask.title !== "" && this.createTask.description !== "") {
-      this.tasks.push(this.createTask);
+    if (this.ModalEditMode == true) {
+      this.tasks[this.taskToEdit] = this.createTask;
       this.createTask = { title: '', description: '', date: '' }; // Reset createTask
       this.saveTasksToCookie();
+      this.ModalEditMode = false;
+
+    } else {
+      if (this.createTask.title !== "" && this.createTask.description !== "") {
+        const now = new Date();
+        this.createTask.date = now.toLocaleDateString('de-DE') + " - " + now.toLocaleTimeString(); // Beispiel für das deutsche Datumsformat
+        this.tasks.push(this.createTask);
+        this.createTask = { title: '', description: '', date: '' }; // Reset createTask
+        this.saveTasksToCookie();
+      }
     }
+
+
+
   }
   delTask(index: number) {
     if (index >= 0 && index < this.tasks.length) {
@@ -37,14 +49,6 @@ export class TaskComponent {
       this.saveTasksToCookie();
     }
   }
-
-  // editTask(index: number){
-  //   if (this.createTask !== "") {
-  //   this.tasks[index] = this.createTask;
-  //   this.saveTasksToCookie();
-  //   this.createTask = "";
-  //   }
-  // }
 
   goUp(i: number) {
     if (i > 0 && i < this.tasks.length) {
@@ -62,9 +66,10 @@ export class TaskComponent {
 
   TaskModal(action: string, i: number) {
     if (action == "show") {
-      console.log("SHOW mode Active");
+      this.ModalEditMode = false;
       this.createTask.title = this.tasks[i].title;
       this.createTask.description = this.tasks[i].description;
+      this.createTask.date = this.tasks[i].date;
       this.ModalShowMode = true;
     }
     if (action == "create") {
@@ -73,9 +78,15 @@ export class TaskComponent {
       this.createTask.title = ""
       this.createTask.description = ""
     }
+    if (action == "edit") {
+      this.taskToEdit = i;
+      this.ModalShowMode = false;
+      this.createTask.title = this.tasks[i].title;
+      this.createTask.description = this.tasks[i].description;
+      this.createTask.date = this.tasks[i].date;
+      this.ModalEditMode = true;
+    }
   }
-
-
 
   private saveTasksToCookie() {
     this.cookieService.set('tasks', JSON.stringify(this.tasks), 365); // Speichert die Tasks in einem Cookie für 365 Tage

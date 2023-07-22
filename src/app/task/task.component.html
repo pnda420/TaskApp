@@ -1,28 +1,26 @@
 <div class="container">
 
   <div style="width: 500px;">
-    <form (ngSubmit)="addTask()">
-      <div class="input-group my-2">
-        <button type="button" class="btn btn-primary" style="width: 100%;" data-bs-toggle="modal"
-          data-bs-target="#TaskModal" (click)="TaskModal('create',0)">
-          Add Task
-        </button>
-      </div>
-    </form>
+
+    <div class="input-group my-2">
+      <button type="button" class="btn btn-primary" style="width: 100%;" data-bs-toggle="modal"
+        data-bs-target="#TaskModal" (click)="TaskModal('create',0)">
+        Add Task
+      </button>
+    </div>
+
     <div class="task-list" style="height: 600px; overflow-y: auto;">
       <ul class="list-group">
         <li *ngFor="let task of tasks; let i = index"
           class="list-group-item d-flex justify-content-between align-items-center">
           <span><i class="bi bi-list-task"></i> {{ task.title }}</span>
           <div class="d-flex">
-            <button type="button" class="btn btn-dark mx-2" data-bs-toggle="modal"
-            data-bs-target="#TaskModal" (click)="TaskModal('show',i)">
-            <i class="bi bi-eye"></i>
-          </button>
-            <button class="btn btn-danger " (click)="delTask(i)">
-              <i class="bi bi-trash-fill"></i>
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#TaskModal"
+              (click)="TaskModal('show',i)">
+              <i class="bi bi-eye"></i>
             </button>
-            <button class="btn btn-warning mx-2" >
+            <button class="btn btn-warning mx-2" (click)="TaskModal('edit',i)" data-bs-toggle="modal"
+              data-bs-target="#TaskModal">
               <i class="bi bi-pencil-fill"></i>
             </button>
             <div class="input-group">
@@ -33,12 +31,17 @@
                 <i class="bi bi-arrow-down-square-fill"></i>
               </button>
             </div>
+            <button class="btn btn-success mx-2" (click)="delTask(i)">
+              <i class="bi bi-check2"></i>
+            </button>
           </div>
         </li>
       </ul>
     </div>
   </div>
 </div>
+
+
 
 
 <!-- Modal -->
@@ -51,24 +54,39 @@
       </div>
       <div class="modal-body">
 
-      
 
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  [(ngModel)]="createTask.title" [disabled]="ModalShowMode">
-          </div>
 
-          <div class="input-group">
-            <span class="input-group-text">Description</span>
-            <textarea class="form-control" aria-label="With textarea"  [(ngModel)]="createTask.description" [disabled]="ModalShowMode"></textarea>
-          </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default" [(ngModel)]="createTask.title" [disabled]="ModalShowMode">
+        </div>
 
+        <div class="input-group mb-3">
+          <span class="input-group-text">Description</span>
+          <textarea class="form-control" aria-label="With textarea" [(ngModel)]="createTask.description"
+            [disabled]="ModalShowMode"></textarea>
+        </div>
+
+        <div class="input-group mb-3" *ngIf="ModalShowMode">
+          <span class="input-group-text" id="inputGroup-sizing-default">Creation Date</span>
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default" [(ngModel)]="createTask.date" [disabled]="ModalShowMode">
+        </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addTask()">Save changes</button>
+
+        <ng-container *ngIf="!ModalShowMode && !ModalEditMode">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addTask()">Add Task</button>
+        </ng-container>
+
+        <ng-container *ngIf="!ModalShowMode && ModalEditMode">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addTask()">Edit Task</button>
+        </ng-container>
       </div>
+
     </div>
   </div>
 </div>
