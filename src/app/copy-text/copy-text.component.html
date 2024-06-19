@@ -1,15 +1,17 @@
 <div class="container">
 
-  <form *ngIf="!editMode" (ngSubmit)="addText()" class="my-2" style="display: flex; gap: 5px;">
+  <form *ngIf="!editMode" (ngSubmit)="addText()" class="my-2" >
     <div class="input-group mb-2">
       <input class="form-control" placeholder="Überschrift" [(ngModel)]="createHeader" name="newHeader"
         maxlength="100">
+          <button class="btn btn-primary" type="submit">+</button>
     </div>
     <div class="input-group mb-2">
-      <input class="form-control" placeholder="Text" [(ngModel)]="createText" name="newText"
-        maxlength="1000">
+          <textarea class="form-control" placeholder="Hier Text eingeben" [(ngModel)]="createText" name="newText"
+            maxlength="1000"></textarea>
+
     </div>
-    <button class="btn btn-primary" type="submit">+</button>
+ 
   </form>
 
   <form *ngIf="editMode" (ngSubmit)="saveEdit()" class="my-2">
@@ -17,10 +19,12 @@
       <input class="form-control" placeholder="Edit header" [(ngModel)]="editHeader" name="editHeader" maxlength="100">
     </div>
     <div class="input-group mb-2">
-      <input class="form-control" placeholder="Edit text" [(ngModel)]="editText" name="editText" maxlength="1000">
+            <textarea class="form-control" placeholder="Edit text" [(ngModel)]="editText" name="editText"
+              maxlength="1000"></textarea>
+
     </div>
-    <button class="btn btn-success" type="submit">Save</button>
-    <button class="btn btn-secondary mx-2" (click)="cancelEdit()" type="button">Cancel</button>
+    <button class="btn btn-success" type="submit">Speichern</button>
+    <button class="btn btn-secondary mx-2" (click)="cancelEdit()" type="button">Abbrechen</button>
   </form>
 
   <div class="input-group my-3">

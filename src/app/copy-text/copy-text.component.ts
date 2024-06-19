@@ -41,8 +41,9 @@ export class CopyTextComponent {
   }
 
   copyText(index: number) {
+    const originalIndex = this.getFilteredTexts()[index].originalIndex;
     const textarea = document.createElement('textarea');
-    textarea.value = this.texts[index].text;
+    textarea.value = this.texts[originalIndex].text;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
