@@ -1,18 +1,99 @@
 div.copyright {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    padding: 5px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    font-size: 12px;
-    font-family: 'Roboto', sans-serif;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  div.copyright:hover {
-    opacity: 0.7; /* Decrease opacity on hover for visual feedback */
-  }
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: opacity 0.3s ease-in-out;
+}
+
+div.copyright:hover {
+  opacity: 0.7;
+  /* Decrease opacity on hover for visual feedback */
+}
+
+::ng-deep .dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+::ng-deep .dark-mode div.modal-header,
+::ng-deep .dark-mode div.modal-body,
+::ng-deep .dark-mode div.modal-footer,
+::ng-deep .dark-mode span.input-group-text
+ {
+  background-color: #444444;
+  color: #ffffff;
+  border: 1px solid #333333;
+}
+
+::ng-deep .dark-mode input,
+::ng-deep .dark-mode textarea,
+::ng-deep .dark-mode select {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #444444;
+}
+
+::ng-deep .dark-mode input::placeholder,
+::ng-deep .dark-mode textarea::placeholder {
+  color: #bbbbbb;
+}
+::ng-deep .dark-mode input:focus,
+::ng-deep .dark-mode textarea:focus,
+::ng-deep .dark-mode select:focus {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #777777;
+  outline: none;
+  /* Entfernt den Standard-Fokusrahmen */
+}
+
+::ng-deep .dark-mode ul,
+::ng-deep .dark-mode li {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px #444444 solid;
+}
+
+::ng-deep .dark-mode ul {
+  border: 1px solid #444444;
+}
+
+::ng-deep .dark-mode li {
+  border-bottom: 1px solid #444444;
+}
+
+::ng-deep .dark-mode input:disabled,
+::ng-deep .dark-mode textarea:disabled {
+  background-color: #f2f2f2;
+  /* Hintergrundfarbe ändern */
+  color: #888;
+  /* Textfarbe ändern */
+}
+
+.fixed-top-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  /* Optional: Damit das Element über anderen Elementen angezeigt wird */
+  margin: 10px;
+  /* Optional: Ein bisschen Abstand vom Rand */
+}
+
+::ng-deep .dark-mode .darkMode-button{
+    background-color: #121212;
+      color: #ffffff;
+}
+.darkMode-button{
+  border-radius: 5px;
+  border: 1px solid #444444;
+
+}

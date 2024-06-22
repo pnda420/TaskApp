@@ -5,11 +5,11 @@ import { Task } from './task.interface';
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css']
+  styleUrls: ['./task.component.css'],
 })
 export class TaskComponent {
   tasks: Task[] = []; // Use Task[] for the tasks array
-  createTask: Task = { title: '', description: '', date: '' }; // Initialize createTask as a Task object
+  createTask: Task = { title: '', description: '', date: '', time: '' }; // Initialize createTask as a Task object
   taskToEdit = 0;
   ModalEditMode = false;
   ModalShowMode = false;
@@ -20,22 +20,24 @@ export class TaskComponent {
     const tasksCookie = this.cookieService.get('tasks');
     if (tasksCookie) {
       this.tasks = JSON.parse(tasksCookie);
+      console.log(this.tasks);
+      
     }
   }
 
   addTask() {
     if (this.ModalEditMode == true) {
       this.tasks[this.taskToEdit] = this.createTask;
-      this.createTask = { title: '', description: '', date: '' }; // Reset createTask
+      this.createTask = { title: '', description: '', date: '', time: '' }; // Reset createTask
       this.saveTasksToCookie();
       this.ModalEditMode = false;
 
     } else {
-      if (this.createTask.title !== "" && this.createTask.description !== "") {
+      if (this.createTask.title !== "") {
         const now = new Date();
         this.createTask.date = now.toLocaleDateString('de-DE') + " - " + now.toLocaleTimeString(); // Beispiel für das deutsche Datumsformat
         this.tasks.push(this.createTask);
-        this.createTask = { title: '', description: '', date: '' }; // Reset createTask
+        this.createTask = { title: '', description: '', date: '', time: '' }; // Reset createTask
         this.saveTasksToCookie();
       }
     }
@@ -43,6 +45,15 @@ export class TaskComponent {
 
 
   }
+
+  canSaveTask(): boolean {
+    if (this.createTask.title) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   delTask(index: number) {
     if (index >= 0 && index < this.tasks.length) {
       this.tasks.splice(index, 1);
@@ -70,6 +81,7 @@ export class TaskComponent {
       this.createTask.title = this.tasks[i].title;
       this.createTask.description = this.tasks[i].description;
       this.createTask.date = this.tasks[i].date;
+      this.createTask.time = this.tasks[i].time;
       this.ModalShowMode = true;
     }
     if (action == "create") {
@@ -77,6 +89,7 @@ export class TaskComponent {
       this.ModalEditMode = false;
       this.createTask.title = ""
       this.createTask.description = ""
+      this.createTask.time = ""
     }
     if (action == "edit") {
       this.taskToEdit = i;
@@ -84,6 +97,7 @@ export class TaskComponent {
       this.createTask.title = this.tasks[i].title;
       this.createTask.description = this.tasks[i].description;
       this.createTask.date = this.tasks[i].date;
+      this.createTask.time = this.tasks[i].time;
       this.ModalEditMode = true;
     }
   }

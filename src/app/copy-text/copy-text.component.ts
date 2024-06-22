@@ -34,11 +34,13 @@ export class CopyTextComponent {
   }
 
   delText(index: number) {
-    if (index >= 0 && index < this.texts.length) {
-      this.texts.splice(index, 1);
+    const originalIndex = this.getFilteredTexts()[index].originalIndex;
+    if (originalIndex >= 0 && originalIndex < this.texts.length) {
+      this.texts.splice(originalIndex, 1);
       this.saveTextToCookie();
     }
   }
+
 
   copyText(index: number) {
     const originalIndex = this.getFilteredTexts()[index].originalIndex;

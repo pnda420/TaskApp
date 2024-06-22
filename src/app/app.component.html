@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div style="display: flex; justify-content: center; align-items: center;">
+<div style="display: flex; justify-content: center;">
     <app-task></app-task>
     <app-copy-text></app-copy-text>
 </div>
@@ -15,3 +15,11 @@
 <div class="copyright">
     <span>&copy; 2023-2024 pnda / Tom Leonards</span>
   </div>
+
+<div class="fixed-top-right">
+    <button (click)="toggleDarkMode()" class="darkMode-button">
+        <i class="bi bi-sun"  *ngIf="isDarkMode"></i>
+        <i class="bi bi-moon" *ngIf="!isDarkMode"></i>
+    </button>
+      
+</div>

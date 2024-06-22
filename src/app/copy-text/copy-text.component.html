@@ -1,17 +1,15 @@
 <div class="container">
 
-  <form *ngIf="!editMode" (ngSubmit)="addText()" class="my-2" >
+  <form *ngIf="!editMode" (ngSubmit)="addText()" class="my-2">
     <div class="input-group mb-2">
-      <input class="form-control" placeholder="Überschrift" [(ngModel)]="createHeader" name="newHeader"
-        maxlength="100">
-          <button class="btn btn-primary" type="submit">+</button>
+      <input class="form-control" placeholder="Überschrift" [(ngModel)]="createHeader" name="newHeader" maxlength="100">
+      <button class="btn btn-primary" type="submit">+</button>
     </div>
     <div class="input-group mb-2">
-          <textarea class="form-control" placeholder="Hier Text eingeben" [(ngModel)]="createText" name="newText"
-            maxlength="1000"></textarea>
+      <textarea class="form-control single-line-textarea" placeholder="Hier Text eingeben" [(ngModel)]="createText"
+        name="newText" maxlength="1000" rows="1"></textarea>
+    </div>
 
-    </div>
- 
   </form>
 
   <form *ngIf="editMode" (ngSubmit)="saveEdit()" class="my-2">
@@ -19,19 +17,19 @@
       <input class="form-control" placeholder="Edit header" [(ngModel)]="editHeader" name="editHeader" maxlength="100">
     </div>
     <div class="input-group mb-2">
-            <textarea class="form-control" placeholder="Edit text" [(ngModel)]="editText" name="editText"
-              maxlength="1000"></textarea>
+      <textarea class="form-control" placeholder="Edit text" [(ngModel)]="editText" name="editText"
+        maxlength="1000"></textarea>
 
     </div>
     <button class="btn btn-success" type="submit">Speichern</button>
     <button class="btn btn-secondary mx-2" (click)="cancelEdit()" type="button">Abbrechen</button>
   </form>
 
-  <div class="input-group my-3">
+  <div class="input-group my-2">
     <input class="form-control" placeholder="Filter" [(ngModel)]="filterText" name="filterText">
   </div>
 
-  <div class="task-list" style="width: 700px; height: 600px; overflow-y: auto;">
+  <div class="task-list" style="width: 700px; height: 500px; overflow-y: auto; ">
     <ul class="list-group">
       <li *ngFor="let item of getFilteredTexts(); let i = index"
         class="list-group-item d-flex justify-content-between align-items-center">
@@ -61,8 +59,11 @@
           </div>
         </div>
       </li>
+
     </ul>
   </div>
+
+
 </div>
 <div *ngIf="showCopyNotification" class="copy-notification">
   copied
