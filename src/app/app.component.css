@@ -78,6 +78,20 @@ div.copyright:hover {
   /* Textfarbe ändern */
 }
 
+::ng-deep .dark-mode ::-webkit-scrollbar {
+  width: 12px;
+
+  background:#444444;
+}
+
+/* Definieren Sie das Erscheinungsbild des Scrollbalken-Schiebereglers */
+::ng-deep .dark-mode ::-webkit-scrollbar-thumb {
+  background-color: #666666;
+  /* Farbe des Scrollbalken-Schiebereglers (Slider) */
+  border-radius: 6px;
+  /* Rundung des Scrollbalken-Schiebereglers */
+}
+
 .fixed-top-right {
   position: fixed;
   top: 0;
