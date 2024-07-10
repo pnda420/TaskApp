@@ -20,7 +20,10 @@ export class CopyTextComponent {
   constructor(private cookieService: CookieService, private renderer: Renderer2) {
     const tasksCookie = this.cookieService.get('texts');
     if (tasksCookie) {
-      this.texts = JSON.parse(tasksCookie);
+      this.texts = JSON.parse(tasksCookie).map((text: any) => ({
+        ...text,
+        text: text.text.replace(/\\n/g, '\n') // Zeilenumbrüche wiederherstellen
+      }));
     }
   }
 
@@ -40,7 +43,6 @@ export class CopyTextComponent {
       this.saveTextToCookie();
     }
   }
-
 
   copyText(index: number) {
     const originalIndex = this.getFilteredTexts()[index].originalIndex;
@@ -76,7 +78,10 @@ export class CopyTextComponent {
   }
 
   private saveTextToCookie() {
-    this.cookieService.set('texts', JSON.stringify(this.texts), 365); // Speichert die Tasks in einem Cookie für 365 Tage
+    this.cookieService.set('texts', JSON.stringify(this.texts.map((text: any) => ({
+      ...text,
+      text: text.text.replace(/\n/g, '\\n') // Zeilenumbrüche kodieren
+    }))), 365); // Speichert die Tasks in einem Cookie für 365 Tage
   }
 
   getFilteredTexts() {
